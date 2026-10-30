@@ -37,16 +37,16 @@ jobs:
           done
           [ "$missing" -eq 0 ] || exit 1
 
-      # The entity is in formation and every partner on the About page is a
-      # counterpart to approach, not a partner. If the disclaimer ever falls
-      # out of a page, the site starts asserting relationships that do not
-      # exist, so the deploy stops instead.
-      - name: Every page carries the in-formation disclaimer
+      # Rainshadow is set up and incubated by Builders VC, but every Oregon
+      # organisation on the About page is still a counterpart to approach. If
+      # that sentence ever falls out of a page, the site starts asserting
+      # relationships that do not exist, so the deploy stops instead.
+      - name: Every page says no Oregon organisation has agreed
         run: |
           bad=0
           for f in index.html accord.html priorities.html apply.html about.html; do
-            grep -q "in formation and is not yet an operating entity" "$f" || {
-              echo "::error file=$f::$f has lost the in-formation disclaimer"
+            grep -q "No Oregon organisation named here has agreed to participate" "$f" || {
+              echo "::error file=$f::$f no longer says that no Oregon organisation has agreed"
               bad=1
             }
           done

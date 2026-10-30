@@ -1,6 +1,7 @@
-# Rainshadow Health Innovation is in formation. The site describes proposed
-# programmes and names organisations that have not been approached, so it is
-# live for people who are sent the link and closed to search engines.
+# Rainshadow Health Innovation is set up and incubated by Builders VC, but the
+# Oregon organisations named on the About page have not been approached and the
+# programmes are not open yet. So the site is live for people who are sent the
+# link and closed to search engines.
 #
 # To open it up: delete this file and remove the robots meta tag from the
 # five pages. One commit, live in about a minute.

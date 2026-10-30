@@ -2,7 +2,7 @@
 
 The Rainshadow Health Innovation site. Eight static files, no build step, no dependencies. Open `index.html` in a browser and it runs.
 
-Rainshadow is Oregon's statewide convener for health technology, built on the model New Mexico proved. Its flagship is the Health ACCORD Challenge. Sibling to [waystation-site](https://github.com/BDO811/waystation-site), which is the delivery company behind the rural pilots.
+Rainshadow is Oregon's statewide convener for health technology, built on the model New Mexico proved, and incubated by [Builders VC](https://builders.vc/). Its flagship is the Health ACCORD Challenge. Sibling to [waystation-site](https://github.com/BDO811/waystation-site), which is the delivery company behind the rural pilots.
 
 | File | Role |
 |---|---|
@@ -16,9 +16,9 @@ Rainshadow is Oregon's statewide convener for health technology, built on the mo
 | `style.css` | page rules |
 | `robots.txt` | keeps the site out of search while the entity is in formation |
 
-## The entity is in formation
+## Nobody in Oregon has agreed yet
 
-Rainshadow is not yet an operating entity. Every organisation named on the About page is a counterpart to approach, not a partner, and none has been approached. Every page carries that disclaimer in its footer and the deploy workflow refuses to publish a page that has lost it.
+Rainshadow itself is set up and incubated by Builders VC, and the site says so in the present tense. What is not settled is the Oregon side: every organisation named on the About page is a counterpart to approach, not a partner, and none has been approached. Every page carries that sentence in its footer and the deploy workflow refuses to publish a page that has lost it.
 
 The site is also closed to search engines, on purpose. `robots.txt` disallows everything and each page carries a `noindex` meta tag. The link works for anyone it is sent to; Google will not surface it. **To open the site up: delete `robots.txt` and remove the robots meta tag from the five pages.** The workflow checks that those two things stay in step, so a half-done change fails the deploy rather than quietly indexing the site.
 
@@ -28,7 +28,7 @@ This repo is public, because that is what makes Pages free. The canon, the clear
 
 ## Deploying
 
-Every push to `main` publishes. The workflow refuses to deploy when a file is missing, when a page has lost the in-formation disclaimer, when `robots.txt` and the meta tags disagree, or when a banned entity appears in the source.
+Every push to `main` publishes. The workflow refuses to deploy when a file is missing, when a page no longer says that no Oregon organisation has agreed, when `robots.txt` and the meta tags disagree, or when a banned entity appears in the source.
 
 Pages enables itself on the first successful run, so there is nothing to switch on by hand.
 
