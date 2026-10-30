@@ -1,0 +1,90 @@
+name: Deploy to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Publishing an incomplete directory would serve a 404 on the live
+      # domain, which is worse than not deploying at all.
+      - name: Refuse to publish an incomplete site
+        run: |
+          missing=0
+          for f in index.html accord.html priorities.html apply.html about.html \
+                   tokens.css base.css style.css CNAME; do
+            if [ ! -f "$f" ]; then
+              echo "::error file=$f::$f is missing"
+              missing=1
+            fi
+          done
+          [ "$missing" -eq 0 ] || exit 1
+
+      # The entity is in formation and every partner on the About page is a
+      # counterpart to approach, not a partner. If the disclaimer ever falls
+      # out of a page, the site starts asserting relationships that do not
+      # exist, so the deploy stops instead.
+      - name: Every page carries the in-formation disclaimer
+        run: |
+          bad=0
+          for f in index.html accord.html priorities.html apply.html about.html; do
+            grep -q "in formation and is not yet an operating entity" "$f" || {
+              echo "::error file=$f::$f has lost the in-formation disclaimer"
+              bad=1
+            }
+          done
+          [ "$bad" -eq 0 ] || exit 1
+
+      # The site stays closed to search engines while the entity is in
+      # formation. Removing robots.txt is a deliberate act, not a slip.
+      - name: Search engines stay out until robots.txt is deliberately removed
+        run: |
+          if [ -f robots.txt ]; then
+            for f in index.html accord.html priorities.html apply.html about.html; do
+              grep -qi 'name="robots"' "$f" || {
+                echo "::error file=$f::robots.txt disallows crawling but $f has no robots meta tag"
+                exit 1
+              }
+            done
+            echo "closed to search engines, as intended"
+          else
+            echo "robots.txt is gone, so the site is open to search engines"
+          fi
+
+      # This repo is public, because that is what makes Pages free.
+      - name: Nothing confidential
+        run: |
+          if grep -rliE 'amii|alberta machine|alberta innovates|carbon health|uceed' \
+               --include='*.html' --include='*.css' . >/dev/null 2>&1; then
+            echo "::error::a banned entity appears in the site source"
+            exit 1
+          fi
+          echo "no banned entity in the source"
+
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deploy
+        uses: actions/deploy-pages@v4

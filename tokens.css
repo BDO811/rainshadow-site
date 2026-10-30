@@ -1,0 +1,60 @@
+/* Rainshadow Health Innovation · design tokens
+ * The brand is one idea: the Cascade crest divides Oregon into a wet west and a dry east.
+ * Pacific blue is the west. Dry amber is the east. The page is the paper the section is drawn on.
+ * No green anywhere, at any saturation, in any role.
+ */
+:root {
+  color-scheme: light;
+
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px;
+  --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1.0625rem; --text-lg: 1.3125rem;
+  --text-xl: 1.625rem; --text-2xl: 2.0625rem; --text-3xl: 2.625rem;
+  --text-display: clamp(2.875rem, 5.4vw + 1rem, 5.5rem);
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem);
+  --text-section: clamp(2rem, 2.6vw + 1rem, 3.5rem);
+  --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.6875rem);
+  --text-lead: clamp(1.125rem, 0.4vw + 1rem, 1.4375rem);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+
+  --container: 1380px; --gutter: 56px; --gap-columns: 32px;
+  --section-gap-s: 112px; --section-gap: 136px;
+
+  /* paper: cool, damp, the west side of the range */
+  --color-paper: oklch(97.2% 0.004 232);
+  --color-paper-2: oklch(99.4% 0.002 232);
+  --color-paper-3: oklch(93.4% 0.008 232);
+  --color-sheet: oklch(99.6% 0.001 232);
+
+  /* ink: blue black, never neutral grey */
+  --color-ink: oklch(21% 0.021 252);
+  --color-ink-2: oklch(31% 0.021 252);
+  --color-muted: oklch(47% 0.018 252);
+  --color-rule: oklch(88% 0.009 232);
+  --color-grid: oklch(92% 0.007 232);
+
+  /* the two sides of the crest */
+  --color-west: oklch(45% 0.108 243);        /* Pacific blue, the wet side, primary */
+  --color-east: oklch(66% 0.138 64);         /* dry amber, the rainshadow, signal */
+  --color-west-soft: oklch(92% 0.032 243);
+  --color-east-soft: oklch(93% 0.042 72);
+  --color-accent: var(--color-west);
+  --color-accent-ink: oklch(99% 0.002 232);
+  --color-focus: oklch(52% 0.14 243);
+
+  /* the section drawing */
+  --color-rock: oklch(58% 0.028 248);
+  --color-rain: oklch(62% 0.055 243);
+
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body: "Inter Tight", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
+
+  --radius-card: 4px; --radius-entry: 4px; --radius-pill: 999px; --rule-hair: 1px;
+  --shadow-lift: 0 1px 1px oklch(21% 0.021 252 / 0.08), 0 20px 40px -24px oklch(21% 0.021 252 / 0.38);
+
+  --tracking-display: -0.012em; --display-weight: 400;
+}
