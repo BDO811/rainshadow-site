@@ -14,13 +14,16 @@ Rainshadow is Oregon's statewide convener for health technology, built on the mo
 | `tokens.css` | palette, type scale, spacing |
 | `base.css` | element defaults |
 | `style.css` | page rules |
-| `robots.txt` | keeps the site out of search while the entity is in formation |
+| `robots.txt` | opens the site to crawlers and points at the sitemap |
+| `sitemap.xml` | the five pages, for search engines |
 
 ## Nobody in Oregon has agreed yet
 
 Rainshadow itself is set up and incubated by Builders VC, and the site says so in the present tense. What is not settled is the Oregon side: every organisation named on the About page is a counterpart to approach, not a partner, and none has been approached. Every page carries that sentence in its footer and the deploy workflow refuses to publish a page that has lost it.
 
-The site is also closed to search engines, on purpose. `robots.txt` disallows everything and each page carries a `noindex` meta tag. The link works for anyone it is sent to; Google will not surface it. **To open the site up: delete `robots.txt` and remove the robots meta tag from the five pages.** The workflow checks that those two things stay in step, so a half-done change fails the deploy rather than quietly indexing the site.
+The site is open to search engines as of 30 October 2026. `robots.txt` allows everything and names the sitemap, no page carries a `noindex` tag, and each one declares a canonical URL on the apex so the apex and `www` are not credited separately.
+
+**To close it again:** put `Disallow: /` back in `robots.txt` and add `<meta name="robots" content="noindex, nofollow">` to the five pages. The workflow checks that robots.txt and the meta tags say the same thing in either direction, so a half-done change in either direction fails the deploy rather than leaving the site indexed in pieces.
 
 ## Nothing confidential goes in here
 
@@ -28,7 +31,7 @@ This repo is public, because that is what makes Pages free. The canon, the clear
 
 ## Deploying
 
-Every push to `main` publishes. The workflow refuses to deploy when a file is missing, when a page no longer says that no Oregon organisation has agreed, when `robots.txt` and the meta tags disagree, or when a banned entity appears in the source.
+Every push to `main` publishes. The workflow refuses to deploy when a file is missing, when a page no longer says that no Oregon organisation has agreed, when `robots.txt` and the meta tags disagree, when the site is open with no sitemap, or when a banned entity appears in the source.
 
 Pages enables itself on the first successful run, so there is nothing to switch on by hand.
 

@@ -52,12 +52,14 @@ jobs:
           done
           [ "$bad" -eq 0 ] || exit 1
 
-      # The site stays closed to search engines while the entity is in
-      # formation. Removing robots.txt is a deliberate act, not a slip.
-      - name: Search engines stay out until robots.txt is deliberately removed
+      # robots.txt and the per page meta tags have to say the same thing. A
+      # site that is half open gets indexed in pieces, which is worse than
+      # either answer, so a disagreement stops the deploy.
+      - name: robots.txt and the meta tags agree
         run: |
-          if [ -f robots.txt ]; then
-            for f in index.html accord.html priorities.html apply.html about.html; do
+          pages="index.html accord.html priorities.html apply.html about.html"
+          if [ -f robots.txt ] && grep -qi '^Disallow: /$' robots.txt; then
+            for f in $pages; do
               grep -qi 'name="robots"' "$f" || {
                 echo "::error file=$f::robots.txt disallows crawling but $f has no robots meta tag"
                 exit 1
@@ -65,7 +67,17 @@ jobs:
             done
             echo "closed to search engines, as intended"
           else
-            echo "robots.txt is gone, so the site is open to search engines"
+            for f in $pages; do
+              grep -qi 'name="robots"[^>]*noindex' "$f" && {
+                echo "::error file=$f::the site is open but $f still carries a noindex tag"
+                exit 1
+              }
+            done
+            [ -f sitemap.xml ] || {
+              echo "::error::the site is open to search engines but there is no sitemap.xml"
+              exit 1
+            }
+            echo "open to search engines, with a sitemap"
           fi
 
       # This repo is public, because that is what makes Pages free.
